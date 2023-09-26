@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.firtproject.project.entities.enums.OrderStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,19 +21,23 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private Instant Date;
+	private Instant date;
+	private Integer status;
+
 	@ManyToOne
 	@JoinColumn(name ="client_id")
-	private User client; // muitos orders para um client
+	private User client; // muitos orders para um clientt
+
 
 	public Order() {
 	}
 
-	public Order(Long id, Instant date, User client) {
+	public Order(Long id, Instant date, OrderStatus status, User client ) {
 		super();
 		this.id = id;
-		Date = date;
+		this.date = date;
 		this.client = client;
+		setStatus(status);
 	}
 
 	public Long getId() {
@@ -43,11 +49,11 @@ public class Order implements Serializable {
 	}
 
 	public Instant getDate() {
-		return Date;
+		return date;
 	}
 
 	public void setDate(Instant date) {
-		Date = date;
+		this.date = date;
 	}
 
 	public User getClint() {
@@ -56,6 +62,13 @@ public class Order implements Serializable {
 
 	public void setUser(User client ) {
 		this.client = client ;
+	}
+	public OrderStatus getStatus() {
+		return OrderStatus.valueOf(status);
+	}
+	public void setStatus(OrderStatus status) {
+		this.status = status.getCode();
+		
 	}
 
 	@Override
