@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.firtproject.project.entities.Order;
 import com.firtproject.project.services.OrderService;
 @RestController
-@RequestMapping(value="order")
+@RequestMapping(value="/order")
 public class OrderResources {
 	@Autowired
 	private OrderService service;
