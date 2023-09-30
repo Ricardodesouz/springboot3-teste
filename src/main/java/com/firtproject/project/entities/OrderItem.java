@@ -1,13 +1,25 @@
 package com.firtproject.project.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.firtproject.project.entities.pk.OrderItemPk;
 
-public class OrderItem {
-	private OrderItemPk id;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+@Entity
+@Table(name ="tb_item")
+public class OrderItem implements Serializable{
+	private static final long serialVersionUID = 1L;
+	@EmbeddedId
+	private OrderItemPk id = new OrderItemPk();
 	private Integer quantity;
 	private Double price;
+	
+	public OrderItem() {};
+	
 	public OrderItem(Order order, Product product,Integer quantity, Double price) {
 		id.setOrder(order);
 		id.setProduct(product);
@@ -26,6 +38,7 @@ public class OrderItem {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}

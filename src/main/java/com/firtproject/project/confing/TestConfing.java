@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.firtproject.project.entities.Category;
 import com.firtproject.project.entities.Order;
+import com.firtproject.project.entities.OrderItem;
 import com.firtproject.project.entities.Product;
 import com.firtproject.project.entities.User;
 import com.firtproject.project.entities.enums.OrderStatus;
 import com.firtproject.project.repositories.CategoryRepository;
+import com.firtproject.project.repositories.OrderItemRepository;
 import com.firtproject.project.repositories.OrderRepository;
 import com.firtproject.project.repositories.ProductRepository;
 import com.firtproject.project.repositories.UserRepository;
@@ -33,6 +35,8 @@ public class TestConfing implements CommandLineRunner {
 	private CategoryRepository CategoryRepository;
 	@Autowired
 	private ProductRepository productRepository; 
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 
 	@Override
@@ -67,6 +71,11 @@ public class TestConfing implements CommandLineRunner {
 		p4.getCategories().add(cat3);
 		p5.getCategories().add(cat3);
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 		
 		
 	}
