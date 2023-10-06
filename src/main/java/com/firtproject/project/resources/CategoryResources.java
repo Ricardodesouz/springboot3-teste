@@ -13,7 +13,7 @@ import com.firtproject.project.entities.Category;
 import com.firtproject.project.services.CategoryService;
 
 @RestController
-@RequestMapping(value="/Category")
+@RequestMapping(value="/category")
 public class CategoryResources {
 	@Autowired
 	private CategoryService service;
