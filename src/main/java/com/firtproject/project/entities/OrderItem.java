@@ -45,11 +45,14 @@ public class OrderItem implements Serializable{
 	public void setOder(Order order) {
 		id.setOrder(order);
 	}
-	public Product getOProduct () {
+	public Product getProduct () {
 		return id.getProduct();
 	}
 	public void setProduct(Product prdouct) {
 		id.setProduct(prdouct);
+	}
+	public Double getSubTotal(){
+		return price * quantity;
 	}
 	@Override
 	public int hashCode() {
