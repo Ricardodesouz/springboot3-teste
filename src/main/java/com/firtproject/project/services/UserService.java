@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.firtproject.project.services.exceptions.DatabaseException;
 import com.firtproject.project.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -39,10 +40,15 @@ public class UserService {
 
 		}
 		public User upadateData(Long id, User obj){
-			User entity = repository.getReferenceById(id);
-			upadate(entity, obj);
-			return repository.save(entity);
-		}
+			try {
+				User entity = repository.getReferenceById(id);
+				upadate(entity, obj);
+				return repository.save(entity);
+			}catch(EntityNotFoundException e) {
+				throw new ResourceNotFoundException(id);
+			}
+
+        }
 
 	private void upadate(User entity, User obj) {
 			entity.setEmail(obj.getEmail());
