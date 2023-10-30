@@ -1,5 +1,6 @@
 package com.firtproject.project.resources.exceptiotn;
 
+import com.firtproject.project.services.exceptions.DatabaseException;
 import com.firtproject.project.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -21,4 +22,37 @@ public class ResourceExceptionHandler {
     return ResponseEntity.status(status).body(error);
 
     }
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> dataBase(DatabaseException e, HttpServletRequest request){
+        String er ="data base error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError error = new StandardError(Instant.now(), status.value(),er, e.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
